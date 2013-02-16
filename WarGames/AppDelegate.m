@@ -30,6 +30,7 @@
   [statusItem setToolTip:@"Hello"];
 
   [statusItem setMenu:statusMenu];
+  // Calvin hi
   
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(check_hid) userInfo:nil repeats:YES];
   
