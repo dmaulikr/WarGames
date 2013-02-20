@@ -14,6 +14,7 @@
   IBOutlet NSMenu* statusMenu;
   NSStatusItem* statusItem;
   NSImage* statusImage;
+  NSMutableDictionary* usersCommandsDictionary;
   
   HIDThing* thing;
   XMLManager* xmlManager;

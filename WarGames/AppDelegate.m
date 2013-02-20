@@ -23,6 +23,8 @@
   
   NSBundle* bundle = [NSBundle mainBundle];
   
+  usersCommandsDictionary = [NSMutableDictionary new];
+  
   statusImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"icon" ofType:@"png"]];
   
   [statusItem setImage:statusImage];
@@ -52,33 +54,20 @@
   [xmlManager setCiPath:settingsValue[3]];
   
   // 5 - length
-  
-  NSDictionary* userCommands = [NSDictionary init];
   int i = 5;
-  while(i < [settingsValue count])
-  {
-    NSDictionary* commands = [NSDictionary init];
-    
+  
+  for(i = 5; i < [settingsValue count]; i++){    
     NSString* currentLine = settingsValue[i];
-    NSArray* settingsValue = [contents componentsSeparatedByString:@" "];
-    // USER U:TIME D:TIME
+    NSArray* userCommandsValue = [currentLine componentsSeparatedByString:@" "];
     
-    // command
-    
-    [commands setValue:@"TIME" forKey:@"UP|DOWN|LEFT|RIGHT"];
-
-    
-    
-    [userCommands setValue:@"username" forKey:commands];
-    
-    i++;
+    // userCommandsValue[0]: user name
+    // userCommandsValue[1]: command move 1
+    // userCommandsValue[2]: command move 2
+    for(int j = 0; j < [userCommandsValue count]; j++){
+      NSArray* commandValue = [NSArray arrayWithObjects:userCommandsValue[1], userCommandsValue[2], nil];
+      [usersCommandsDictionary setValue: commandValue forKey:userCommandsValue[0]];
+    }
   }
-  
-  [userCommands valueForKey:@"username"];
-  
-  
-  
-  
   
   thing = [[HIDThing alloc] init];
   
@@ -96,33 +85,27 @@
 }
 
 
+- (NSDictionary*) getCommandsByUser:(NSString*) buildBreaker {
+  
+  return [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSNumber numberWithInteger:1500], @"U",
+            [NSNumber numberWithInteger:100], @"D", nil];
 
+}
 
 
 
 - (void) receiveTestNotification:(NSNotification *) notification {
-  
-  
-  
 
   NSLog(@" RECEIVED note %@", [[notification object] buildBreaker]);
   
-
-  
-  
-  NSDictionary* commands = [getCommandsByUser:[[notification object] buildBreaker]];
-  
-//  //NSDictionary* commands = [NSDictionary dictionaryWithObjectsAndKeys:
-//                            [NSNumber numberWithInteger:1500], @"U",
-//                            [NSNumber numberWithInteger:100], @"D", nil];
-//  
-  
-  
+  NSArray* commands = [usersCommandsDictionary objectForKey:[[notification object] buildBreaker]];
   
   [self pointAndShoot:commands];
 }
 
-- (void) pointAndShoot:(NSDictionary*) commands {
+
+- (void) pointAndShoot:(NSArray*) commands {
   
   [thing shootWithCommands:commands];
   

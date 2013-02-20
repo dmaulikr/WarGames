@@ -178,9 +178,9 @@ static void unplug_callback(void *hid, IOReturn ret, void *ref)
 }
 
 
--(void) shootWithCommands:(NSDictionary*) commands {
+-(void) shootWithCommands:(NSArray*) commands {
   
-  NSLog(@"Shooting with commands! \n");
+  NSLog(@"Shooting with commands! %@", commands);
   
   
 }
