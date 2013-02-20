@@ -9,10 +9,6 @@
 #import "XMLManager.h"
 
 
-
-
-
-
 @implementation XMLManager
 
 @synthesize buildBreaker;
