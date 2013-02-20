@@ -13,7 +13,7 @@
 
 @interface XMLManager : NSObject {
   NSInteger prevBuildNumber;
-  NSString* buildBreaker;
+
   NSURL *url;
   AFHTTPClient *client;
   NSURLRequest *request;
@@ -21,6 +21,8 @@
   AFXMLRequestOperation* operation;
   
 }
+
+@property NSString* buildBreaker;
 
 @property NSString* user;
 @property NSString* password;

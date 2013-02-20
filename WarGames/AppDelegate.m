@@ -51,6 +51,35 @@
   [xmlManager setCiDomain:settingsValue[2]];
   [xmlManager setCiPath:settingsValue[3]];
   
+  // 5 - length
+  
+  NSDictionary* userCommands = [NSDictionary init];
+  int i = 5;
+  while(i < [settingsValue count])
+  {
+    NSDictionary* commands = [NSDictionary init];
+    
+    NSString* currentLine = settingsValue[i];
+    NSArray* settingsValue = [contents componentsSeparatedByString:@" "];
+    // USER U:TIME D:TIME
+    
+    // command
+    
+    [commands setValue:@"TIME" forKey:@"UP|DOWN|LEFT|RIGHT"];
+
+    
+    
+    [userCommands setValue:@"username" forKey:commands];
+    
+    i++;
+  }
+  
+  [userCommands valueForKey:@"username"];
+  
+  
+  
+  
+  
   thing = [[HIDThing alloc] init];
   
   
@@ -59,7 +88,46 @@
   
   [thing check_hid];
 
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(receiveTestNotification:)
+                                               name:@"Build Broke"
+                                             object:nil];
 }
+
+
+
+
+
+
+- (void) receiveTestNotification:(NSNotification *) notification {
+  
+  
+  
+
+  NSLog(@" RECEIVED note %@", [[notification object] buildBreaker]);
+  
+
+  
+  
+  NSDictionary* commands = [getCommandsByUser:[[notification object] buildBreaker]];
+  
+//  //NSDictionary* commands = [NSDictionary dictionaryWithObjectsAndKeys:
+//                            [NSNumber numberWithInteger:1500], @"U",
+//                            [NSNumber numberWithInteger:100], @"D", nil];
+//  
+  
+  
+  
+  [self pointAndShoot:commands];
+}
+
+- (void) pointAndShoot:(NSDictionary*) commands {
+  
+  [thing shootWithCommands:commands];
+  
+}
+
 
 - (IBAction) status:(id)sender {
 

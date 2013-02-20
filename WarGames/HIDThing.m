@@ -163,10 +163,6 @@ IOHIDDeviceRef          dev_ref;
   
 }
 
-
-
-
-
 static void input_callback(void *context, IOReturn result, void *sender, IOHIDReportType type, uint32_t reportID, uint8_t *report, CFIndex reportLength)
 {
   NSLog(@"Connected! \n");
@@ -182,7 +178,12 @@ static void unplug_callback(void *hid, IOReturn ret, void *ref)
 }
 
 
-
+-(void) shootWithCommands:(NSDictionary*) commands {
+  
+  NSLog(@"Shooting with commands! \n");
+  
+  
+}
 
 
 

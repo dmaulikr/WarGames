@@ -10,6 +10,8 @@
 
 @interface HIDThing : NSObject
 
+-(void) shootWithCommands:(NSDictionary*) commands;
+
 - (void) check_hid;
 
 - (void) on;
