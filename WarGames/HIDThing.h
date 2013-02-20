@@ -10,11 +10,12 @@
 
 @interface HIDThing : NSObject
 
--(void) shootWithCommands:(NSArray*) commands;
-
-- (void) check_hid;
-
 - (void) on;
 - (void) off;
+
+- (void) led:(BOOL) state;
+
+- (void) check_hid;
+- (void) shootWithCommands:(NSArray*) commands;
 
 @end
