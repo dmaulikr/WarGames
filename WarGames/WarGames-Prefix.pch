@@ -8,3 +8,5 @@
 
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <CoreServices/CoreServices.h>
+
+#define _AFNETWORKING_ALLOW_INVALID_SSL_CERTIFICATES_

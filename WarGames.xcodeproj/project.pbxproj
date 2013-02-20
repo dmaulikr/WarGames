@@ -28,6 +28,7 @@
 		61B6D63416CEEA260018D684 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B6D63316CEEA260018D684 /* SystemConfiguration.framework */; };
 		61B6D63616CEEAB90018D684 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B6D63516CEEAB90018D684 /* CoreServices.framework */; };
 		61B6D66D16CEF2780018D684 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B6D66C16CEF2780018D684 /* IOKit.framework */; };
+		FFA32C7616D4363C00744E12 /* XMLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA32C7516D4363C00744E12 /* XMLManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,8 @@
 		61B6D63316CEEA260018D684 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		61B6D63516CEEAB90018D684 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		61B6D66C16CEF2780018D684 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		FFA32C7416D4363C00744E12 /* XMLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLManager.h; sourceTree = "<group>"; };
+		FFA32C7516D4363C00744E12 /* XMLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 				61B6D60516CEB6A20018D684 /* MainMenu.xib */,
 				61B6D62F16CEE65D0018D684 /* HIDThing.h */,
 				61B6D63016CEE65D0018D684 /* HIDThing.m */,
+				FFA32C7416D4363C00744E12 /* XMLManager.h */,
+				FFA32C7516D4363C00744E12 /* XMLManager.m */,
 			);
 			name = src;
 			path = WarGames;
@@ -269,6 +274,7 @@
 				616D351716CF04A400786167 /* AFURLConnectionOperation.m in Sources */,
 				616D351816CF04A400786167 /* AFXMLRequestOperation.m in Sources */,
 				616D351916CF04A400786167 /* UIImageView+AFNetworking.m in Sources */,
+				FFA32C7616D4363C00744E12 /* XMLManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

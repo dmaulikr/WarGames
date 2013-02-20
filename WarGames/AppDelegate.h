@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "HIDThing.h"
+#import "XMLManager.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
   IBOutlet NSMenu* statusMenu;
@@ -15,6 +16,8 @@
   NSImage* statusImage;
   
   HIDThing* thing;
+  XMLManager* xmlManager;
+
 
 }
 

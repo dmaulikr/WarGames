@@ -11,7 +11,6 @@
 
 #import "HIDThing.h"
 
-#import "AFJSONRequestOperation.h"
 
 
 @implementation AppDelegate
@@ -30,21 +29,18 @@
   [statusItem setToolTip:@"Hello"];
 
   [statusItem setMenu:statusMenu];
-  // Calvin hi
   
-  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(check_hid) userInfo:nil repeats:YES];
+
   
-  
+  xmlManager = [[XMLManager alloc] init];
   thing = [[HIDThing alloc] init];
   
-  [thing check_hid];
   
-  NSURL *url = [NSURL URLWithString:@"https://alpha-api.app.net/stream/0/posts/stream/global"];
-  NSURLRequest *request = [NSURLRequest requestWithURL:url];
-  AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-    NSLog(@"App.net Global Stream: %@", JSON);
-  } failure:nil];
-  [operation start];
+  [xmlManager requestAndParseXML];
+
+  
+  [thing check_hid];
+
 }
 
 - (IBAction) status:(id)sender {
@@ -62,10 +58,6 @@
   
   [thing off];
   
-}
-
-- (void) check_hid {
-   NSLog(@"doing my thing");
 }
 
 
