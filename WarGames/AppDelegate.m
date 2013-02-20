@@ -28,11 +28,29 @@
   [statusItem setImage:statusImage];
   [statusItem setToolTip:@"Hello"];
 
-  [statusItem setMenu:statusMenu];
+  [statusItem setMenu:statusMenu];  
   
-
+  NSError *err = nil;
+  NSString *path = [[NSBundle mainBundle] pathForResource:@"settings" ofType:@"txt"];
+  NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
+  
+  if(!contents) {
+    //handle error
+  }
+  
+  // setting[0]: Username
+  // setting[1]: Password
+  // setting[2]: ci pipeline domain
+  // setting[3]: ci pipeline rss feed path
+  NSArray* settingsValue = [contents componentsSeparatedByString:@"\n"];
   
   xmlManager = [[XMLManager alloc] init];
+  
+  [xmlManager setUser:settingsValue[0]];
+  [xmlManager setPassword:settingsValue[1]];
+  [xmlManager setCiDomain:settingsValue[2]];
+  [xmlManager setCiPath:settingsValue[3]];
+  
   thing = [[HIDThing alloc] init];
   
   

@@ -17,9 +17,8 @@
   
   HIDThing* thing;
   XMLManager* xmlManager;
-
-
 }
+
 
 - (IBAction) status:(id)sender;
 - (IBAction) move:(id)sender;

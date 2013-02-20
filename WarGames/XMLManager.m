@@ -9,17 +9,25 @@
 #import "XMLManager.h"
 
 
-#import "AFHTTPClient.h"
+
 
 
 
 @implementation XMLManager
+
+@synthesize user;
+@synthesize password;
+@synthesize ciDomain;
+@synthesize ciPath;
 
 - (id)init {
   self = [super init];
   if (self) {
     NSLog(@"XMLManager");
     
+    prevBuildNumber = -1;
+    buildBreaker = @"";
+        
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(requestAndParseXML) userInfo:nil repeats:YES];
   }
   return self;
@@ -27,42 +35,29 @@
 
 - (NSInteger) getBuildNumber:(NSString*) theTitle {
   
-  NSString* str = @"hello (9999) world";
-  
   NSError* error;
   
   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([0-9]+)" options:NSRegularExpressionCaseInsensitive error:&error];
   
-
-  //NSArray* matches = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
+  NSRange range = [regex rangeOfFirstMatchInString:theTitle options:kNilOptions range:NSMakeRange(0, [theTitle length])];
+  NSString* buildNumber = [theTitle substringWithRange:range];
   
-  
-  
-  NSString* hello = [regex stringByReplacingMatchesInString:str options:0 range:NSMakeRange(0, [str length]) withTemplate:@"$1"];
-  
-  NSLog(@"num %@", hello);
-  
-  
-  // Determine which retailer user's assortments to get
-//  NSNumber* num = [[[NSNumberFormatter alloc] init] numberFromString:[regex stringByReplacingMatchesInString:str options:0 range:NSMakeRange(0, [str length]) withTemplate:@"$1"]];
-
-  //NSLog(@"num %@", num);
-  
-  return 0;
+  return [buildNumber integerValue];
 }
 
 
 - (void) requestAndParseXML {
   
-  NSLog(@"check_hid");
+  NSLog(@"check_hid %@ %@", user ,password );
   
-  NSURL *url = [NSURL URLWithString:@""];
-  AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:url];
-  [client setAuthorizationHeaderWithUsername:@"" password:@""];
+  url = [NSURL URLWithString:ciDomain];
+  client = [AFHTTPClient clientWithBaseURL:url];
+  [client setAuthorizationHeaderWithUsername:[self user] password:[self password]];
   
-  NSURLRequest *request = [client requestWithMethod:@"GET" path:@"" parameters:nil];
+  request = [client requestWithMethod:@"GET" path:ciPath parameters:nil];
   
   [AFXMLRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"application/atom+xml"]];
+
   
   operation = [AFXMLRequestOperation XMLDocumentRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id XML) {
     
@@ -72,21 +67,28 @@
     
     NSXMLNode* author = [[XML nodesForXPath:@"//entry[1]/author" error:&error] objectAtIndex:0];
     
+    if(error)
+    {
+      NSLog(@"Error: Can't find build number");
+    }
     
     NSLog(@"author name: %@", [author stringValue]);
     NSLog(@"title name: %@", [title stringValue]);
     
-    [self getBuildNumber:[title stringValue]];
+    NSInteger buildNumber = [self getBuildNumber:[title stringValue]];
     
-    if(error)
+    if(buildNumber != prevBuildNumber && [[title stringValue] rangeOfString:@"Failed"].location != NSNotFound)
     {
+      NSLog(@"fine");
       
+      buildBreaker = [author stringValue];
+      
+      [[NSNotificationCenter defaultCenter]
+       postNotificationName:@"Build Broke" object:self];
+      
+      prevBuildNumber = buildNumber;
     }
-    
-    
-
-    
-    
+          
     
   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error , id XML) {
     
