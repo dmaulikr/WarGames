@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HIDThing : NSObject
+@interface HIDThing : NSObject {
+  
 
-- (void) on;
-- (void) off;
+  
+}
+
+@property   NSArray* commands;
 
 - (void) led:(BOOL) state;
-
 - (void) check_hid;
-- (void) shootWithCommands:(NSArray*) commands;
+- (void) shootWithCommands:(NSArray*) _commands;
 
 @end

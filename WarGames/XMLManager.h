@@ -12,27 +12,23 @@
 #import "AFHTTPClient.h"
 
 @interface XMLManager : NSObject {
-  NSInteger prevBuildNumber;
 
+  NSInteger prevBuildNumber;
   NSURL *url;
   AFHTTPClient *client;
   NSURLRequest *request;
-  
   AFXMLRequestOperation* operation;
   
 }
 
 @property NSString* buildBreaker;
-
 @property NSString* user;
 @property NSString* password;
 @property NSString* ciDomain;
 @property NSString* ciPath;
 
 
-
--(void) requestAndParseXML;
-
--(NSInteger) getBuildNumber:(NSString*) theTitle;
+- (void) requestAndParseXML;
+- (NSInteger) getBuildNumber:(NSString*) theTitle;
 
 @end

@@ -15,6 +15,8 @@
 
 @implementation HIDThing
 
+@synthesize commands;
+
 IOHIDManagerRef         hid_manager;
 CFMutableDictionaryRef  dict;
 IOReturn                ret;
@@ -25,11 +27,14 @@ uint8_t                 *buf;
 uint8_t                 *send_buf;
 IOHIDDeviceRef          dev_ref;
 boolean_t               connected = false;
+boolean_t               running = false;
+
+
 
 - (id)init {
   self = [super init];
   if (self) {
-
+    send_buf = (uint8_t *) malloc(64);
   }
   return self;
 }
@@ -86,7 +91,7 @@ boolean_t               connected = false;
 
   if (num_devices < 1) {
     CFRelease(device_set);
-    NSLog(@"HID/macos: no devices found, even though HID manager returned a set\n");
+    NSLog(@"HID: no devices found, even though HID manager returned a set\n");
     NSLog(@"No Devices Found though HID manager returned a set");
 
     return;
@@ -124,28 +129,21 @@ boolean_t               connected = false;
   IOHIDDeviceRegisterRemovalCallback(dev_ref, unplug_callback, NULL);
 }
 
-- (void) on {
-
-  send_buf = (uint8_t *) malloc(64);
-  send_buf[0] = 0x03;
-  send_buf[1] = 0x01;
-
-  IOHIDDeviceSetReport(dev_ref, kIOHIDReportTypeOutput, send_buf[0], (unsigned char*) send_buf, sizeof(send_buf) + 1);
-  
-}
-
-- (void) off {
-
-  send_buf = (uint8_t *) malloc(64);
-  send_buf[0] = 0x03;
-  send_buf[1] = 0x00;
-  
-  IOHIDDeviceSetReport(dev_ref, kIOHIDReportTypeOutput, send_buf[0], (unsigned char*) send_buf, sizeof(send_buf) + 1);
-  
-}
 
 - (void) led:(BOOL) state {
-  
+
+  send_buf[0] = 0x03;
+
+  if(state)
+  {
+    send_buf[1] = 0x01;
+  }
+  else
+  {
+    send_buf[1] = 0x00;
+  }
+
+  [self send_command:send_buf];
 }
 
 - (void) move {
@@ -160,46 +158,77 @@ boolean_t               connected = false;
    STOP    = 0x20
    
    */
-  send_buf = (uint8_t *) malloc(64);
+//  send_buf = (uint8_t *) malloc(64);
+//  send_buf[0] = 0x02;
+//  send_buf[1] = 0x04;
+//  
+//  IOHIDDeviceSetReport(dev_ref, kIOHIDReportTypeOutput, send_buf[0], (unsigned char*) send_buf, sizeof(send_buf) + 1);
+  
+//  send_buf = (uint8_t *) malloc(64);
   send_buf[0] = 0x02;
   send_buf[1] = 0x04;
-  
+
+  [self send_command:send_buf];
+}
+
+- (void) send_command:(uint8_t* ) buffer {
+
   IOHIDDeviceSetReport(dev_ref, kIOHIDReportTypeOutput, send_buf[0], (unsigned char*) send_buf, sizeof(send_buf) + 1);
-  
+
 }
 
-static void input_callback(void *context, IOReturn result, void *sender, IOHIDReportType type, uint32_t reportID, uint8_t *report, CFIndex reportLength)
-{
-  // NSLog(@"Connected! \n");
+-(void) shootWithCommands:(NSArray*) _commands {
 
-  connected = true;
+  if(running) return;
+  // if(running || !connected) return;
+
+  [self led:YES];
+  running = true;
   
-}
-static void unplug_callback(void *hid, IOReturn ret, void *ref)
-{
-  // NSLog(@"NOT Connected! \n");
+  commands = _commands;
 
-  connected = false;
-}
+  NSLog(@"Shooting with commands!\n");
 
-
--(void) shootWithCommands:(NSArray*) commands {
-
-  NSLog(@"Shooting with commands! \n");
-
-  // if(!connected) return;
   
+  NSString* command = [commands objectAtIndex:0];
+  
+  NSLog(@"first command %@", command);
   
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(nextCommand) userInfo:nil repeats:NO];
   
 }
 
 -(void) nextCommand {
+
+  NSString* command = [commands objectAtIndex:1];
+
+  NSLog(@"second command %@", command);
+
+  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shootCommand) userInfo:nil repeats:NO];
+}
+
+-(void) shootCommand {
   
+  NSLog(@"shoot command");
+  
+  [self led:NO];
+  running = false;
+
 }
 
 
 
 
+
+static void input_callback(void *context, IOReturn result, void *sender, IOHIDReportType type, uint32_t reportID, uint8_t *report, CFIndex reportLength)
+{
+  // NSLog(@"Connected! \n");
+  connected = true;
+}
+static void unplug_callback(void *hid, IOReturn ret, void *ref)
+{
+  // NSLog(@"NOT Connected! \n");
+  connected = false;
+}
 
 @end
