@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Queue.h"
+
 @interface HIDThing : NSObject {
   
 
   
 }
 
-@property   NSArray* commands;
+@property NSMutableArray* commands;
 
 - (void) led:(BOOL) state;
 - (void) check_hid;

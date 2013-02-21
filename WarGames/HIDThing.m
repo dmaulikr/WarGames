@@ -191,11 +191,12 @@ boolean_t               running = false;
   [self led:YES];
   running = true;
 
-  commands = _commands;
+  [commands addObjectsFromArray:_commands];
+  [commands enqueue:@"R:2"]; // add reset command...
 
   NSLog(@"Shooting with commands!\n");
 
-  NSString* command = [commands objectAtIndex:0];
+  NSString* command = [commands dequeue];
   NSArray* instructions = [command componentsSeparatedByString:@":"];
   
 
@@ -214,7 +215,7 @@ boolean_t               running = false;
   send_buf[1] = 0x20;
   [self send_command:send_buf];
 
-  NSString* command = [commands objectAtIndex:1];
+  NSString* command = [commands dequeue];
   NSArray* instructions = [command componentsSeparatedByString:@":"];
 
   NSLog(@"second command %@ %d", [instructions objectAtIndex:0], [[instructions objectAtIndex:1] intValue]);

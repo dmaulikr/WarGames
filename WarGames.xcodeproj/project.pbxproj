@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61083A0516D5CA1B001F07F0 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 61083A0416D5CA1B001F07F0 /* Queue.m */; };
 		616D351116CF04A400786167 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 616D34FF16CF04A400786167 /* AFHTTPClient.m */; };
 		616D351216CF04A400786167 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 616D350116CF04A400786167 /* AFHTTPRequestOperation.m */; };
 		616D351316CF04A400786167 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 616D350316CF04A400786167 /* AFImageRequestOperation.m */; };
@@ -34,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		61083A0316D5CA1B001F07F0 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Queue.h; path = utils/Queue.h; sourceTree = "<group>"; };
+		61083A0416D5CA1B001F07F0 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Queue.m; path = utils/Queue.m; sourceTree = "<group>"; };
 		616D34FE16CF04A400786167 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		616D34FF16CF04A400786167 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		616D350016CF04A400786167 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -96,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61083A0216D5C9EE001F07F0 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				61083A0316D5CA1B001F07F0 /* Queue.h */,
+				61083A0416D5CA1B001F07F0 /* Queue.m */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
 		616D34FD16CF04A400786167 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +180,7 @@
 		61B6D5F616CEB6A10018D684 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				61083A0216D5C9EE001F07F0 /* utils */,
 				61B6D60216CEB6A20018D684 /* AppDelegate.h */,
 				61B6D60316CEB6A20018D684 /* AppDelegate.m */,
 				61B6D60516CEB6A20018D684 /* MainMenu.xib */,
@@ -293,6 +306,7 @@
 				616D351816CF04A400786167 /* AFXMLRequestOperation.m in Sources */,
 				616D351916CF04A400786167 /* UIImageView+AFNetworking.m in Sources */,
 				FFA32C7616D4363C00744E12 /* XMLManager.m in Sources */,
+				61083A0516D5CA1B001F07F0 /* Queue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
