@@ -31,6 +31,9 @@
 		61B6D66D16CEF2780018D684 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B6D66C16CEF2780018D684 /* IOKit.framework */; };
 		FF51294816D57C250032ACA3 /* icon.psd in Resources */ = {isa = PBXBuildFile; fileRef = FF51294516D57C250032ACA3 /* icon.psd */; };
 		FF51294916D57C250032ACA3 /* settings.txt in Resources */ = {isa = PBXBuildFile; fileRef = FF51294616D57C250032ACA3 /* settings.txt */; };
+		FF9D70B616D6D2AC00118835 /* MusicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9D70B516D6D2AC00118835 /* MusicManager.m */; };
+		FF9D70B816D6D2BA00118835 /* fixit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF9D70B716D6D2BA00118835 /* fixit.mp3 */; };
+		FF9D70BA16D6D33D00118835 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9D70B916D6D33D00118835 /* AVFoundation.framework */; };
 		FFA32C7616D4363C00744E12 /* XMLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA32C7516D4363C00744E12 /* XMLManager.m */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +82,10 @@
 		FF51294416D57C250032ACA3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		FF51294516D57C250032ACA3 /* icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = icon.psd; sourceTree = "<group>"; };
 		FF51294616D57C250032ACA3 /* settings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = settings.txt; sourceTree = "<group>"; };
+		FF9D70B416D6D2AC00118835 /* MusicManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicManager.h; sourceTree = "<group>"; };
+		FF9D70B516D6D2AC00118835 /* MusicManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicManager.m; sourceTree = "<group>"; };
+		FF9D70B716D6D2BA00118835 /* fixit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = fixit.mp3; path = Resources/fixit.mp3; sourceTree = "<group>"; };
+		FF9D70B916D6D33D00118835 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FFA32C7416D4363C00744E12 /* XMLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLManager.h; sourceTree = "<group>"; };
 		FFA32C7516D4363C00744E12 /* XMLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF9D70BA16D6D33D00118835 /* AVFoundation.framework in Frameworks */,
 				61B6D63416CEEA260018D684 /* SystemConfiguration.framework in Frameworks */,
 				61B6D66D16CEF2780018D684 /* IOKit.framework in Frameworks */,
 				61B6D63616CEEAB90018D684 /* CoreServices.framework in Frameworks */,
@@ -138,6 +146,7 @@
 		61B6D5E416CEB6A10018D684 = {
 			isa = PBXGroup;
 			children = (
+				FF9D70B916D6D33D00118835 /* AVFoundation.framework */,
 				61B6D62C16CEC1A10018D684 /* Resources */,
 				61B6D5F616CEB6A10018D684 /* src */,
 				61B6D5EF16CEB6A10018D684 /* Frameworks */,
@@ -180,6 +189,8 @@
 		61B6D5F616CEB6A10018D684 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				FF9D70B416D6D2AC00118835 /* MusicManager.h */,
+				FF9D70B516D6D2AC00118835 /* MusicManager.m */,
 				61083A0216D5C9EE001F07F0 /* utils */,
 				61B6D60216CEB6A20018D684 /* AppDelegate.h */,
 				61B6D60316CEB6A20018D684 /* AppDelegate.m */,
@@ -209,6 +220,7 @@
 		61B6D62C16CEC1A10018D684 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FF9D70B716D6D2BA00118835 /* fixit.mp3 */,
 				61B6D5F716CEB6A20018D684 /* Supporting Files */,
 				61B6D62A16CEC1990018D684 /* icon.png */,
 				FF51294316D57C250032ACA3 /* Resources */,
@@ -283,6 +295,7 @@
 				61B6D62B16CEC1990018D684 /* icon.png in Resources */,
 				FF51294816D57C250032ACA3 /* icon.psd in Resources */,
 				FF51294916D57C250032ACA3 /* settings.txt in Resources */,
+				FF9D70B816D6D2BA00118835 /* fixit.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +320,7 @@
 				616D351916CF04A400786167 /* UIImageView+AFNetworking.m in Sources */,
 				FFA32C7616D4363C00744E12 /* XMLManager.m in Sources */,
 				61083A0516D5CA1B001F07F0 /* Queue.m in Sources */,
+				FF9D70B616D6D2AC00118835 /* MusicManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

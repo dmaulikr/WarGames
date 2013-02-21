@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "HIDThing.h"
 #import "XMLManager.h"
+#import "MusicManager.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
   IBOutlet NSMenu* statusMenu;
@@ -18,6 +19,7 @@
   
   HIDThing* thing;
   XMLManager* xmlManager;
+  MusicManager* musicManager;
 }
 
 

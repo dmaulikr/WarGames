@@ -24,6 +24,8 @@
   [statusItem setToolTip:@"Hello"];
   [statusItem setMenu:statusMenu];
 
+  musicManager = [[MusicManager alloc] init];
+  
   NSError *err = nil;
   NSString *path = [bundle pathForResource:@"settings" ofType:@"txt"];
   NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
@@ -82,6 +84,7 @@
 }
 
 - (void) pointAndShoot:(NSArray*) commands {
+  [musicManager playFailedAlert];
   [thing shootWithCommands:commands];
 }
 
