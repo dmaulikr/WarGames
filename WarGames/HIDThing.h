@@ -18,6 +18,7 @@
 
 - (void) led:(BOOL) state;
 - (void) check_hid;
+- (void) move:(NSString*) direction;
 - (void) shootWithCommands:(NSArray*) _commands;
 
 @end

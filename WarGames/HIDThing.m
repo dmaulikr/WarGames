@@ -35,6 +35,8 @@ boolean_t               running = false;
   self = [super init];
   if (self) {
     send_buf = (uint8_t *) malloc(64);
+    
+
   }
   return self;
 }
@@ -146,9 +148,24 @@ boolean_t               running = false;
   [self send_command:send_buf];
 }
 
-- (void) move {
+- (void) move:(NSString*) direction {
+  
+  
+  send_buf[0] = 0x02;
+  
+  if([direction isEqualToString:@"U"])
+  {
+     send_buf[1] = 0x02;
+  }else if([direction isEqualToString:@"D"]){
+      send_buf[1] = 0x01;
+  }else if([direction isEqualToString:@"L"]){
+      send_buf[1] = 0x04;
+  }else if([direction isEqualToString:@"R"]){
+      send_buf[1] = 0x08;
+  }
+
   /*
-   
+
    # Protocol command bytes
    DOWN    = 0x01
    UP      = 0x02
@@ -156,25 +173,14 @@ boolean_t               running = false;
    RIGHT   = 0x08
    FIRE    = 0x10
    STOP    = 0x20
-   
+
    */
-//  send_buf = (uint8_t *) malloc(64);
-//  send_buf[0] = 0x02;
-//  send_buf[1] = 0x04;
-//  
-//  IOHIDDeviceSetReport(dev_ref, kIOHIDReportTypeOutput, send_buf[0], (unsigned char*) send_buf, sizeof(send_buf) + 1);
-  
-//  send_buf = (uint8_t *) malloc(64);
-  send_buf[0] = 0x02;
-  send_buf[1] = 0x04;
 
   [self send_command:send_buf];
 }
 
 - (void) send_command:(uint8_t* ) buffer {
-
   IOHIDDeviceSetReport(dev_ref, kIOHIDReportTypeOutput, send_buf[0], (unsigned char*) send_buf, sizeof(send_buf) + 1);
-
 }
 
 -(void) shootWithCommands:(NSArray*) _commands {
@@ -184,35 +190,63 @@ boolean_t               running = false;
 
   [self led:YES];
   running = true;
-  
+
   commands = _commands;
 
   NSLog(@"Shooting with commands!\n");
 
-  
   NSString* command = [commands objectAtIndex:0];
+  NSArray* instructions = [command componentsSeparatedByString:@":"];
   
-  NSLog(@"first command %@", command);
-  
-  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(nextCommand) userInfo:nil repeats:NO];
+
+  [self move:[instructions objectAtIndex:0]];
+
+
+  NSLog(@"first command %@ %f", [instructions objectAtIndex:0], [[instructions objectAtIndex:1] doubleValue]);
+
+  [NSTimer scheduledTimerWithTimeInterval:[[instructions objectAtIndex:1] floatValue] target:self selector:@selector(nextCommand) userInfo:nil repeats:NO];
   
 }
 
 -(void) nextCommand {
 
+  send_buf[0] = 0x02;
+  send_buf[1] = 0x20;
+  [self send_command:send_buf];
+
   NSString* command = [commands objectAtIndex:1];
+  NSArray* instructions = [command componentsSeparatedByString:@":"];
 
-  NSLog(@"second command %@", command);
+  NSLog(@"second command %@ %d", [instructions objectAtIndex:0], [[instructions objectAtIndex:1] intValue]);
 
-  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(shootCommand) userInfo:nil repeats:NO];
+  [self move:[instructions objectAtIndex:0]];
+
+  [NSTimer scheduledTimerWithTimeInterval:[[instructions objectAtIndex:1] floatValue] target:self selector:@selector(shootCommand) userInfo:nil repeats:NO];
 }
 
 -(void) shootCommand {
-  
+
+  send_buf[0] = 0x02;
+  send_buf[1] = 0x20;
+  [self send_command:send_buf];
+
   NSLog(@"shoot command");
   
+  send_buf[0] = 0x02;
+  send_buf[1] = 0x01;//0x10;
+  [self send_command:send_buf];
+
+  [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(resetCommand) userInfo:nil repeats:NO];
+}
+
+
+-(void) resetCommand {
+
+  NSLog(@"reset command");
+
   [self led:NO];
   running = false;
+
 
 }
 
