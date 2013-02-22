@@ -81,7 +81,9 @@
   NSArray* commands = [usersCommandsDictionary objectForKey:[[notification object] buildBreaker]];
   
   if(!commands){
-    commands = [usersCommandsDictionary objectForKey:@"dlabar"];
+    NSArray* users = [usersCommandsDictionary allKeys];
+    NSUInteger user = arc4random() % [users count];
+    commands = [usersCommandsDictionary objectForKey:users[user]];
   }
   
   [self pointAndShoot:commands];
