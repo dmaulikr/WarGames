@@ -62,7 +62,7 @@
 
   thing = [[HIDThing alloc] init];
 
-  // [xmlManager requestAndParseXML];
+  [xmlManager requestAndParseXML];
 
   [thing check_hid];
   

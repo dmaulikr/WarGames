@@ -24,7 +24,7 @@
     prevBuildNumber = -1;
     buildBreaker = @"";
 
-    // [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(requestAndParseXML) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(requestAndParseXML) userInfo:nil repeats:YES];
   }
   return self;
 }
