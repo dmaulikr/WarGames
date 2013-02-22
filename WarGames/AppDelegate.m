@@ -66,7 +66,7 @@
 
   [thing check_hid];
   
-  [thing shootWithCommands:[NSArray arrayWithObjects:@"U:0.5", @"D:0.5", nil]];
+//  [thing shootWithCommands:[NSArray arrayWithObjects:@"R:2.0", @"U:0.4", nil]];
   
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(receiveTestNotification:)

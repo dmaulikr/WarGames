@@ -16,7 +16,7 @@
   
 }
 
-@property NSMutableArray* commands;
+@property NSArray* commands;
 
 - (void) led:(BOOL) state;
 - (void) check_hid;
