@@ -79,7 +79,11 @@
   NSLog(@" RECEIVED note %@", [[notification object] buildBreaker]);
 
   NSArray* commands = [usersCommandsDictionary objectForKey:[[notification object] buildBreaker]];
-
+  
+  if(!commands){
+    commands = [usersCommandsDictionary objectForKey:@"dlabar"];
+  }
+  
   [self pointAndShoot:commands];
 }
 

@@ -68,7 +68,7 @@
 
     NSInteger buildNumber = [self getBuildNumber:[title stringValue]];
 
-    if(buildNumber != prevBuildNumber && [[title stringValue] rangeOfString:@"Failed"].location == NSNotFound)
+    if(buildNumber != prevBuildNumber && [[title stringValue] rangeOfString:@"Failed"].location != NSNotFound)
     {
       // NSLog(@"fine");
 
